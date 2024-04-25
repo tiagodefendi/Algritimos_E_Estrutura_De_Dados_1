@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
-#include "aluno.h"
-#include "turma.h"
+#include "aluno.hpp"
+#include "turma.hpp"
 
 using namespace std;
 

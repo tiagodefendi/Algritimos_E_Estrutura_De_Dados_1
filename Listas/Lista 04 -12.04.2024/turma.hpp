@@ -1,6 +1,6 @@
 #include <istream>
 #include <string>
-#include "aluno.h"
+#include "aluno.hpp"
 
 using namespace std;
 
