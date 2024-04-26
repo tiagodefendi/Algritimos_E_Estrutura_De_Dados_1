@@ -1,18 +1,18 @@
-#include <string>
+#include <stdio.h>
 
-class Vetor{
+class ListaContigua{
     private:
         int* array;
         int capacity;
         int size;
 
     public:
-        Vetor(){
+        ListaContigua(){
             this->size = 0;
-            this->capacity == 1;
-            this->array = new int[1];
+            this->capacity = 1;
+            this->array = new int[this->capacity];
         }
-        ~Vetor(){
+        ~ListaContigua(){
             delete array;
         }
 
@@ -85,7 +85,6 @@ class Vetor{
             return e;
         }
 
-
         // Retorna o primeiro elemento
         int front(){
             return this->array[0];
@@ -101,24 +100,29 @@ class Vetor{
 
         // Torna a lista vazia
         void clear(){
+            delete this->array;
+            this->capacity = 1;
+            this->array = new int[this->capacity];
             this->size=0;
 
             gerenciaCapacidade();
         }
 
-        // Verifica se o vetor está vazio
+        // Verifica se o ListaContigua está vazio
         bool empty(){
             if (size==0) return true;
 
             return false;
         }
+
         // Devolve a quantidade de elementos
         int getSize(){
             return this->size;
         }
+
         // Substitui o elemento da posição pos pelo elemento e
         bool replace(int pos, int e){
-            if (pos<=this->size){
+            if (pos<this->size){
                 array[pos] = e;
                 return true;
             }
