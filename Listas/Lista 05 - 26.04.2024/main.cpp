@@ -1,8 +1,8 @@
-#include "vetor.hpp"
+#include "lista_contigua.hpp"
 
 int main(){
-	Vetor v1;      // []
-	Vetor* v2 = new Vetor();
+	ListaContigua v1;      // []
+	ListaContigua* v2 = new ListaContigua();
 
 	v1.push_back(10);  // [10]
 	v1.push_back(20);  // [10,20]
