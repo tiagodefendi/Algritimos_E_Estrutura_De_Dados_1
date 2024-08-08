@@ -278,6 +278,18 @@ class ListaEncadeada {
         }
 
         // Imprime todos os elementos no formato [3,2,1]
-        void printIverso();
+        void printIverso() {
+            printf("[");
+
+            No* tempNo = this->primeiro;
+            for (int i=this->qtde-1; i>-1; i++){
+                printf("%d,", tempNo->dado);
+                tempNo = tempNo->prox;
+            }
+            if (this->empty()) {
+                printf(" ");
+            }
+            printf("\b]");
+        }
 
 };
