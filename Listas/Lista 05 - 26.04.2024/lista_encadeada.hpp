@@ -125,19 +125,19 @@ class ListaEncadeada {
                 return LISTA_VAZIA;
             }
 
-            No* tempNo = this->ultimo->ant; // clona o penúltimo nó
+            No* tempNo = this->ultimo; // clona o penúltimo nó
             int dado_del = this->ultimo->dado; // clona o elemento dentro do ultimo nó
+            this->ultimo = this->ultimo->ant;
 
-            if (this->qtde == 1) { // caso se a lista tinha apenas um elemento os ponteiros apontam para null
+            if (this->ultimo == nullptr) { // caso se a lista tinha apenas um elemento os ponteiros apontam para null
                 this->primeiro = nullptr;
-                this->ultimo = nullptr;
+
             }
             else {
-                this->ultimo = tempNo; // se não o último agora apontará para o temporário 
                 this->ultimo->prox = nullptr; // o proximo não apontara par nada
             }
 
-            delete this->ultimo;
+            delete tempNo;
             this->qtde --;
             return dado_del;
         }
@@ -147,19 +147,18 @@ class ListaEncadeada {
                 return LISTA_VAZIA;
             }
 
-            No* tempNo = this->primeiro->prox; // clona o segundo elemento
+            No* tempNo = this->primeiro; // clona o segundo elemento
             int dado_del = this->primeiro->dado; // clona o elemento no primeiro
+            this->primeiro = this->primeiro->prox;
 
-            if (this->qtde == 1) { // caso se a lista tinha apenas um elemento os ponteiros apontam para null
-                this->primeiro = nullptr; 
+            if (this->primeiro == nullptr) { // caso se a lista tinha apenas um elemento os ponteiros apontam para null
                 this->ultimo = nullptr;
             }
             else {
-                this->primeiro = tempNo; // se não a lista passar a pontar para o segundo como primeiro nó
                 this->primeiro->ant = nullptr; // o ponteiro ant agora aponta para nada
             }
 
-            delete this->primeiro; // deleta o ultimo nó
+            delete tempNo; // deleta o ultimo nó
             this->qtde --;
             return dado_del;
         }
@@ -230,20 +229,20 @@ class ListaEncadeada {
 
         // Torna a lista vazia
         void clear() {
-            // No* tempNo = this->primeiro;
-            // for (int i=0; i<this->qtde-1; i++){
-            //     tempNo = tempNo->prox;
-            //     delete tempNo->ant;
-            // }
-            // delete tempNo;
+            No* tempNo = this->primeiro;
+            for (int i=0; i<this->qtde-1; i++){
+                tempNo = tempNo->prox;
+                delete this->primeiro;
+                this->primeiro = tempNo;
+            }
 
-            // this->primeiro = nullptr;
-            // this->ultimo = nullptr;
-            // this->qtde = 0;
+            this->primeiro = nullptr;
+            this->ultimo = nullptr;
+            this->qtde = 0;
 
-            while (!this->empty()) {
-                pop_back();
-            }  
+            // while (!this->empty()) {
+            //     this->pop_back();
+            // }  
         }
 
         // Verifica se o vetor está vazio
@@ -263,33 +262,79 @@ class ListaEncadeada {
         }
 
         // Imprime todos os elementos no formato [1,2,3]
+        // void print() {
+        //     printf("[");
+
+        //     No* tempNo = this->primeiro;
+        //     for (int i=0; i<this->qtde-1; i++){
+        //         printf("%d,", tempNo->dado);
+        //         tempNo = tempNo->prox;
+        //     }
+        //     printf("%d,", tempNo->dado);
+
+        //     if (this->empty()) {
+        //         printf(" ");
+        //     }
+
+        //     printf("\b]\n");
+        // }
+
         void print() {
             printf("[");
 
-            No* tempNo = this->primeiro;
-            for (int i=0; i<this->qtde; i++){
-                printf("%d,", tempNo->dado);
-                tempNo = tempNo->prox;
+            for (No* aux = this->primeiro; aux != nullptr; aux = aux->prox) {
+                printf("%d", aux->dado);
+                if (aux != this->ultimo) printf(",");
             }
-            if (this->empty()) {
-                printf(" ");
-            }
-            printf("\b]");
+
+            printf("]\n");
         }
 
         // Imprime todos os elementos no formato [3,2,1]
-        void printIverso() {
+        // void printInverso() {
+        //     printf("[");
+
+        //     No* tempNo = this->ultimo;
+        //     for (int i=this->qtde-1; i>0; i++){
+        //         printf("%d,", tempNo->dado);
+        //         tempNo = tempNo->ant;
+        //     }
+        //     printf("%d,", tempNo->dado);
+        //     if (this->empty()) {
+        //         printf(" ");
+        //     }
+
+        //     printf("\b]\n");
+        // }
+        void printInverso() {
             printf("[");
 
-            No* tempNo = this->primeiro;
-            for (int i=this->qtde-1; i>-1; i++){
-                printf("%d,", tempNo->dado);
-                tempNo = tempNo->prox;
+            for (No* aux = this->ultimo; aux != nullptr; aux = aux->ant) {
+                printf("%d", aux->dado);
+                if (aux != this->primeiro) printf(",");
             }
-            if (this->empty()) {
-                printf(" ");
-            }
-            printf("\b]");
-        }
 
+            printf("]\n");
+        }
 };
+
+
+// #include <string>
+
+// #define LISTA_VAZIA -999999
+// #define POSICAO_INVALIDA -999998
+
+// class No {
+//   public:
+//    No* ant;
+//    int dado;
+//    No* prox;
+
+//    No() {}
+//    No(int dado) { this->dado = dado; }
+//    No(No* ant, int dado, No* prox) {
+//       this->ant = ant;
+//       this->dado = dado;
+//       this->prox = prox;
+//    }
+// };
