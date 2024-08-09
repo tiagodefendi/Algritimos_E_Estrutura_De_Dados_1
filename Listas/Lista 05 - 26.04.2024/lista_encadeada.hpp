@@ -111,8 +111,9 @@ class ListaEncadeada {
                 No* tempNo = getEnderecoNo(pos); // um nó temporário recebe o nó da posição pos
 
                 newNo->ant = tempNo->ant; // novo nó passa a apontar com ant para o ant do nó temporário
-                tempNo->ant = newNo; // agora o nó temporário passa a apontar para o novo como o anterior
                 newNo->prox = tempNo; // o novo passa apontar para o temporário como prox
+                tempNo->ant->prox = newNo;
+                tempNo->ant = newNo; // agora o nó temporário passa a apontar para o novo como o anterior
 
                 this->qtde ++;
                 return true;
@@ -258,83 +259,41 @@ class ListaEncadeada {
             if (this->empty()) {
                 return LISTA_VAZIA;
             }
+            No* tempNo = this->getEnderecoNo(pos);
+            tempNo->dado = e;
             return true;
         }
 
         // Imprime todos os elementos no formato [1,2,3]
-        // void print() {
-        //     printf("[");
-
-        //     No* tempNo = this->primeiro;
-        //     for (int i=0; i<this->qtde-1; i++){
-        //         printf("%d,", tempNo->dado);
-        //         tempNo = tempNo->prox;
-        //     }
-        //     printf("%d,", tempNo->dado);
-
-        //     if (this->empty()) {
-        //         printf(" ");
-        //     }
-
-        //     printf("\b]\n");
-        // }
-
         void print() {
             printf("[");
 
-            for (No* aux = this->primeiro; aux != nullptr; aux = aux->prox) {
-                printf("%d", aux->dado);
-                if (aux != this->ultimo) printf(",");
+            No* tempNo = this->primeiro;
+            for (int i=0; i<this->qtde; i++){
+                printf("%d,", tempNo->dado);
+                tempNo = tempNo->prox;
             }
 
-            printf("]\n");
+            if (this->empty()) {
+                printf(" ");
+            }
+
+            printf("\b]\n");
         }
 
         // Imprime todos os elementos no formato [3,2,1]
-        // void printInverso() {
-        //     printf("[");
-
-        //     No* tempNo = this->ultimo;
-        //     for (int i=this->qtde-1; i>0; i++){
-        //         printf("%d,", tempNo->dado);
-        //         tempNo = tempNo->ant;
-        //     }
-        //     printf("%d,", tempNo->dado);
-        //     if (this->empty()) {
-        //         printf(" ");
-        //     }
-
-        //     printf("\b]\n");
-        // }
         void printInverso() {
             printf("[");
 
-            for (No* aux = this->ultimo; aux != nullptr; aux = aux->ant) {
-                printf("%d", aux->dado);
-                if (aux != this->primeiro) printf(",");
+            No* tempNo = this->ultimo;
+            for (int i=this->qtde; i>0; i--){
+                printf("%d,", tempNo->dado);
+                tempNo = tempNo->ant;
+            }
+            if (this->empty()) {
+                printf(" ");
             }
 
-            printf("]\n");
+            printf("\b]\n");
         }
 };
-
-
-// #include <string>
-
-// #define LISTA_VAZIA -999999
-// #define POSICAO_INVALIDA -999998
-
-// class No {
-//   public:
-//    No* ant;
-//    int dado;
-//    No* prox;
-
-//    No() {}
-//    No(int dado) { this->dado = dado; }
-//    No(No* ant, int dado, No* prox) {
-//       this->ant = ant;
-//       this->dado = dado;
-//       this->prox = prox;
-//    }
-// };

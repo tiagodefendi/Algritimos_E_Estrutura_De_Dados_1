@@ -30,6 +30,7 @@ int main(){
 
 	v3.erase(2);         // [10,20,40,50]
 	v3.insert(2, 25);    // [10,20,25,40,50]
+	v3.replace(3, 30);   // [10,20,25,30,50]
 	v3.print();
 	v3.printInverso();
 
