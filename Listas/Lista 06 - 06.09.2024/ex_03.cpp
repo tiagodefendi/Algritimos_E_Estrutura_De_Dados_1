@@ -25,24 +25,27 @@ bool buscaBinariaIterativa(int elemento, int* v, int tam) {
 }
 
 bool buscaBinariaRecursiva(int elemento, int* v, int tam) {
-    if (tam<0) {
+    if (tam-1<0) {
         return false;
     }
-    if (v[tam/2] == elemento){
+
+    int meio = tam/2;
+
+    if (v[meio] == elemento){
         return true;
     }
-    else if (v[tam/2] > elemento){
-        return buscaBinariaRecursiva(elemento, v, tam-2);
+    else if (v[meio] > elemento){
+        return buscaBinariaRecursiva(elemento, v, meio);
     }
     else {
-        return buscaBinariaRecursiva(elemento, v+2, tam-2);
+        return buscaBinariaRecursiva(elemento, v+meio, meio);
     }
 }
 
 int main() {
-    int v[9] = {1,2,3,4,5,6,7,8,9};
+    int v[] = {1,2,3,4,5,6,7,8,9,10};
 
-    printf("%d", buscaBinariaRecursiva(11, v, 9));
+    printf("%d", buscaBinariaRecursiva(7, v, 10));
 
     return 0;
 }
