@@ -25,7 +25,7 @@ bool buscaBinariaIterativa(int elemento, int* v, int tam) {
 }
 
 bool buscaBinariaRecursiva(int elemento, int* v, int tam) {
-    if (tam-1<0) {
+    if (tam<0) {
         return false;
     }
 
@@ -38,7 +38,7 @@ bool buscaBinariaRecursiva(int elemento, int* v, int tam) {
         return buscaBinariaRecursiva(elemento, v, meio);
     }
     else {
-        return buscaBinariaRecursiva(elemento, v+meio, meio);
+        return buscaBinariaRecursiva(elemento, v+meio+1, meio);
     }
 }
 
